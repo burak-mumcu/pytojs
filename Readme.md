@@ -5,7 +5,7 @@ This library allows you to run functions written in python through nodejs and se
 ####Node.js with args　
 
 ```javascript
-const {spawn} = require('child_process')
+const {pyProcess} = require('pytojs')
 
 (async () => {
     try {
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 ####Node.js without args　
 
 ```javascript
-const {spawn} = require('child_process')
+const {pyProcess} = require('pytojs')
 
 (async () => {
     try {
