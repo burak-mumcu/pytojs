@@ -1,24 +1,59 @@
-<h1 class="code-line" data-line-start=1 data-line-end=2 ><a id="pytojs_1"></a>pytojs</h1>
-<p class="has-line-data" data-line-start="3" data-line-end="4">This library allows you to run functions written in python through nodejs and send arguments to python</p>
-<pre><code class="has-line-data" data-line-start="6" data-line-end="18" class="language-javascript"><span class="hljs-keyword">const</span> { pyProcess } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pytojs'</span>);
+### pytojs
 
-<span class="hljs-keyword">const</span> pathToScript = <span class="hljs-string">'./your_script.py'</span>;
+This library allows you to run functions written in python through nodejs and send arguments to python
 
-<span class="hljs-comment">//you don't need to use this line if you don't have any arguments to take in your python code</span>
-<span class="hljs-keyword">const</span> scriptArgs = [<span class="hljs-string">'arg1'</span>, <span class="hljs-string">'arg2'</span>, <span class="hljs-string">'arg3'</span>];
+####Node.js with args　
 
-<span class="hljs-keyword">const</span> result = pyProcess(pathToScript, scriptArgs);
+```javascript
+const {spawn} = require('child_process')
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Python betiğinden dönen sonuç:'</span>, result);
+(async () => {
+    try {
+        const result = await pyProcess('./your_path.py',['your_args','your_second_args']);
+        //you can enter as many arguments as you want in this section; the arguments you enter will come as an array
+    } catch (error) {
+        console.error('error:', error);
+    }
+})();
+```
+####Python with args　
+```python
+import sys
+import json
 
-</code></pre>
-<pre><code class="has-line-data" data-line-start="20" data-line-end="30" class="language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">read_in</span><span class="hljs-params">()</span>:</span>
+#The lines in the main function are for taking node.js arguments; if you are not sending any arguments, these lines are not needed
+
+def main():
     lines = sys.stdin.readlines()
-    <span class="hljs-keyword">return</span> json.loads(lines[<span class="hljs-number">0</span>])
-    
-<span class="hljs-comment"># in this section it is important to enter the arguments in order !!!</span>
-arg1,arg2 = read_in()
+    return json.loads(lines[0])
 
-<span class="hljs-comment"># now you can be use the other codes</span>
+if __name__ == "__main__":
+    print(main())
+ #You need to print the data you want to pass to node.js in python
+```
 
-</code></pre>
+####Node.js without args　
+
+```javascript
+const {spawn} = require('child_process')
+
+(async () => {
+    try {
+        const result = await pyProcess('./your_path.py');
+        console.log(result);
+    } catch (error) {
+        console.error('error:', error);
+    }
+})();
+```
+####Python without args　
+```python
+def main():
+    return 85
+
+if __name__ == "__main__":
+    print(main())
+ #You need to print the data you want to pass to   node.js in python
+```
+
+

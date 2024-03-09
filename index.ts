@@ -41,7 +41,8 @@ export const pyProcess = async (path: string, args?: any[]) => {
 
 (async () => {
     try {
-        const result = await pyProcess('./deneme.py');
+        const result = await pyProcess('./deneme.py',['gelmez dimi ya']);
+        console.log(result);
     } catch (error) {
         console.error('Hata:', error);
     }
