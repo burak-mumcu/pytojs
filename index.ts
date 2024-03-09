@@ -19,14 +19,6 @@ export const pyProcess = async (path: string, args?: any[]) => {
             reject(data.toString());
         });
 
-       /* process.stdout.on('end', () => {
-            if (stringData !== '') {
-                resolve(stringData);
-            } else {
-                reject(-1);
-            }
-        }); */
-
         process.on('close', (code) => {
             if (code === 0) {
                 resolve(stringData.trim());
